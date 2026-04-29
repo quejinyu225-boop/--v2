@@ -1,0 +1,163 @@
+@import "tailwindcss";
+
+@theme {
+  --color-watercolor-pink: #fff1f2;
+  --color-watercolor-purple: #f5f3ff;
+  --color-watercolor-yellow: #fffdf2;
+  --color-watercolor-cream: #fafaf9;
+  --color-watercolor-blue: #f0f9ff;
+  
+  --color-accent-pink: #fda4af;
+  --color-accent-purple: #c084fc;
+  
+  --color-bg-emergency: #fff7ed; /* Warm peach-cream for emergency */
+  
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+@layer base {
+  body {
+    @apply bg-watercolor-cream text-slate-600 antialiased selection:bg-pink-100 transition-colors duration-1000;
+  }
+}
+
+@layer components {
+  .jelly-glass {
+    background-color: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 8px 32px 0 rgba(255, 255, 255, 0.1), inset 0 0 0 1px rgba(255, 255, 255, 0.4);
+  }
+
+  .floating-bubble {
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9999px;
+    background-color: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 8px 32px 0 rgba(255, 255, 255, 0.1), inset 0 0 0 1px rgba(255, 255, 255, 0.4);
+    cursor: pointer;
+    transition: all 400ms cubic-bezier(0.4, 0, 0.2, 1);
+    background-image: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0) 100%);
+  }
+  
+  .floating-bubble:hover {
+    transform: scale(1.2);
+    box-shadow: 0 0 20px 5px rgba(253, 164, 175, 0.3), 0 8px 32px 0 rgba(255, 255, 255, 0.1);
+  }
+  
+  .floating-bubble:active {
+    transform: scale(0.95);
+  }
+
+  .immersive-overlay {
+    @apply fixed inset-0 z-[100] flex flex-col items-center justify-center p-8;
+  }
+
+  .chat-bubble-user {
+    @apply bg-white/60 backdrop-blur-md rounded-2xl rounded-tr-none px-4 py-3 text-slate-700 shadow-sm border border-white/50 self-end;
+  }
+
+  .chat-bubble-ai {
+    background-color: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 8px 32px 0 rgba(255, 255, 255, 0.1), inset 0 0 0 1px rgba(255, 255, 255, 0.4);
+    @apply rounded-2xl rounded-tl-none px-4 py-3 text-slate-700 self-start;
+  }
+
+  .guardian-angel-light {
+    background: radial-gradient(circle at center, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.2) 60%, transparent 100%);
+    filter: blur(40px);
+  }
+}
+
+@keyframes float-sine {
+  0%, 100% { transform: translateY(0) translateX(0); }
+  25% { transform: translateY(-8px) translateX(4px); }
+  50% { transform: translateY(0) translateX(8px); }
+  75% { transform: translateY(8px) translateX(4px); }
+}
+
+@keyframes drift {
+  0%, 100% { transform: translateX(-15px) translateY(-5px); }
+  50% { transform: translateX(15px) translateY(5px); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.05); }
+}
+
+.animate-float-slow {
+  animation: float-sine 6s ease-in-out infinite;
+}
+
+.animate-float-medium {
+  animation: float-sine 4s ease-in-out infinite;
+}
+
+.animate-drift {
+  animation: drift 10s ease-in-out infinite;
+}
+
+@keyframes sway {
+  0%, 100% { transform: rotate(-1deg) translateY(0); }
+  50% { transform: rotate(1deg) translateY(-3px); }
+}
+
+@keyframes bubble-float-up {
+  0% { transform: translateY(0) scale(1); opacity: 1; }
+  100% { transform: translateY(-500px) scale(0.5); opacity: 0; }
+}
+
+@keyframes merge-in {
+  0% { transform: scale(0); opacity: 0; }
+  50% { transform: scale(1.1); opacity: 0.5; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes wave {
+  0%, 100% { height: 4px; }
+  50% { height: 24px; }
+}
+
+.animate-sway {
+  animation: sway 4s ease-in-out infinite;
+}
+
+.animate-bubble-up {
+  animation: bubble-float-up 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.animate-merge {
+  animation: merge-in 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.voice-bar {
+  @apply w-1 bg-pink-300 rounded-full mx-0.5;
+  animation: wave 1s ease-in-out infinite;
+}
+
+.bubble-text {
+  background-color: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 8px 32px 0 rgba(255, 255, 255, 0.1), inset 0 0 0 1px rgba(255, 255, 255, 0.4);
+  border-radius: 40px;
+  padding: 1rem 1.5rem;
+  animation: sway 4s ease-in-out infinite;
+  position: relative;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
